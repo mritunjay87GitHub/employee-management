@@ -1,4 +1,4 @@
-package com.mks.restapi;
+package com.mks.controller;
 
 import java.util.List;
 
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -22,13 +20,11 @@ import com.mks.exception.ResponseHeaderException;
 import com.mks.service.intf.DepartmentService;
 import com.mks.service.intf.EmployeeService;
 
-//@RestController
 @Controller
-//@RequestMapping("employee-management")
 @RequestMapping("esm/employee")
-public class EmployeeRestController {
+public class EmployeeController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeRestController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeController.class);
 
 	@Autowired
 	private EmployeeService employeeService;
@@ -39,15 +35,13 @@ public class EmployeeRestController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	 //@GetMapping("/")
-	 @GetMapping()
+	@GetMapping()
 	public ModelAndView  employeeList() {
 		LOGGER.info("Entry to EmployeeRestController >>> employeeList() method");
 		 ModelAndView modelAndView = new ModelAndView();
 		 	List<Employee> employeeList = null;
 			try {
 				employeeList = employeeService.getEmployees();
-				LOGGER.info("employeeList====>{}",employeeList);
 				modelAndView.addObject("employeeList", employeeList);
 				modelAndView.setViewName("employee-list");
 				LOGGER.info("Exit from EmployeeRestController >>> employeeList() method");
@@ -96,38 +90,26 @@ public class EmployeeRestController {
 	}
 	
 	@GetMapping("/employee/{employeeId}")
-	public Employee getEmployee(@PathVariable("employeeId") Long employeeId) {
+	public ModelAndView getEmployee(@PathVariable("employeeId") Long employeeId) {
 		LOGGER.info("Entry to EmployeeRestController >>> getEmployee() method");
+		ModelAndView mav = new ModelAndView();
 		Employee employee = null;
 		try {
 			employee = employeeService.getEmployee(employeeId);
+			mav.setViewName("view-details");
+			mav.addObject("employee", employee);
 		} catch (Exception exception) {
 			LOGGER.error(exception.getMessage());
 			throw new ResponseHeaderException(exception.getLocalizedMessage());
 		}
 		LOGGER.info("Exit from EmployeeRestController >>> getEmployee() method");
-		return employee;
-	}
-
-	@GetMapping("/employees")
-	public List<Employee> getEmployees() {
-		List<Employee> employeeList = null;
-		try {
-			LOGGER.info("Entry to EmployeeRestController >>> getEmployees() method");
-			employeeList = employeeService.getEmployees();
-			LOGGER.info("Exit from EmployeeRestController >>> getEmployees() method");
-		} catch (Exception exception) {
-			LOGGER.error(exception.getMessage());
-			throw new ResponseHeaderException(exception.getMessage());
-		}
-		return employeeList;
+		return mav;
 	}
 
 	@PostMapping("/create-employee")
 	public ModelAndView createEmployee(Employee employee) {
 		try {
 			LOGGER.info("Entry to EmployeeRestcreateEmployeeController >>> () method");
-			//LOGGER.info("{} -> {}",employee.getPassword(),passwordEncoder.encode(employee.getPassword()));
 			employee.setPassword(passwordEncoder.encode(employee.getPassword()));
 			employee = employeeService.saveEmployee(employee);
 			LOGGER.info("Exit from EmployeeRestController >>> createEmployee() method");
@@ -136,31 +118,6 @@ public class EmployeeRestController {
 			throw new ResponseHeaderException(exception.getMessage());
 		}
 		return this.employeeList();
-	}
-	
-	@PostMapping("/save-employee")
-	public Employee saveEmployee(@RequestBody Employee employee) {
-		try {
-			LOGGER.info("Entry to EmployeeRestcreateEmployeeController >>> () method -> {}", employee);
-			employee = employeeService.saveEmployee(employee);
-			LOGGER.info("Exit from EmployeeRestController >>> createEmployee() method");
-		} catch (Exception exception) {
-			LOGGER.error(exception.getMessage());
-			throw new ResponseHeaderException(exception.getMessage());
-		}
-		return employee;
-	}
-
-	@PutMapping("/edit-employee")
-	public Employee updateEmployee(@RequestBody Employee employee) {
-		try {
-			LOGGER.info("Entry to EmployeeRestController >>> updateEmployee() method");
-			employee = employeeService.updateEmployee(employee);
-			LOGGER.info("Exit from EmployeeRestController >>> updateEmployee() method");
-		} catch (Exception exception) {
-			LOGGER.error("Employee not found");
-		}
-		return employee;
 	}
 
 	@DeleteMapping("/employee/{employeeId}")

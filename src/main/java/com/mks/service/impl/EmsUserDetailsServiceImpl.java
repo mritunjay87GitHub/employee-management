@@ -30,7 +30,7 @@ public class EmsUserDetailsServiceImpl implements UserDetailsService {
 		LOGGER.info("Entry to EmsUserDetailsServiceImpl >>> loadUserByUsername() method ==>{}",username);
 		try {
 			Employee employee = employeeService.findByUserName(username);
-			LOGGER.info("Employee Info EmsUserDetailsServiceImpl >>> loadUserByUsername() method ==>{}",employee);
+			LOGGER.info("Employee Info EmsUserDetailsServiceImpl >>> loadUserByUsername() method ==>{}");
 			if (employee == null) {
 				LOGGER.warn("user not found: {}", username);
 	            throw new UsernameNotFoundException("User " + username + " not found");
