@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{ems.title}"> Title </title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    </head>
+	<body>
+		<h3 th:text="#{ems.login}">Login</h3>
+	    <form action="#" th:action="@{/login}" th:object="${userAuthentication}" method="POST">
+	      <table>
+			 
+	    	<tr>
+				<td th:text="#{employee.userName}"/></td>
+	    	    <td>
+	    	       <input type="text" th:field="*{username}" name="username"/>
+	    	       <label th:if="${#fields.hasErrors('username')}" th:text="#{error.auth.username}" th:class="'error'">Id Error</label>
+	    	    </td>
+	    	</tr>
+	    	<tr>
+				<td th:text="#{employee.password}"/></td>
+	    	    <td>
+	    	       <input type="password" th:field="*{password}" name="password"/>
+	    	       <label th:if="${#fields.hasErrors('password')}" th:text="#{error.auth.password}" th:class="'error'">Id Error</label>
+	    	    </td>
+	    	</tr> 		    	
+	        <tr><td colspan="2">
+	              <input type="submit" th:value="#{ems.emp.form.submit}"/> 
+	              <input type="reset" th:value="#{ems.emp.form.reset}"/>
+	            </td>
+	        </tr>
+	      </table>  
+	    </form>
+	</body>
+</html>

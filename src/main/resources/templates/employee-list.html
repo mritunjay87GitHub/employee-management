@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+      <title th:text="#{ems.title}"> Title </title>
+      <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+	
+   <h1 th:text="#{ems.landing.page.title}">Welcome to Employee Maanagement System</h1>
+    <table>
+		<!--
+        <tr>
+           <th th:text="#{user.id}"/></th>
+           <th th:text="#{user.name}"></th>
+           <th th:text="#{user.gender}"></th>
+           <th th:text="#{user.married}+ '?'"></th>
+           <th th:text="#{user.profile}"></th>
+        </tr>
+         -->
+         <tr>
+	      <td>Emp Id</td>
+	      <td>Name</td>
+		  <td>Email Id</td>
+		  <td>Department</td>
+		  <td>Action</td>
+		</tr>	
+        <tr th:each="employee : ${employeeList}">
+	      <td th:text="${employee.empId}"> Emp Id </td>
+		  <td th:text="${employee.firstName + ' ' + employee.middleName + ' ' + employee.lastName}">Name</td>
+		  <td th:text="${employee.emailId}"> Email Id </td>
+		  <td th:text="${employee.department.departmentName}"> Department </td>
+<!--		  <td> <a href="#" th:href="@{/esm-employee/edit/}" th:text="#{ems.emp.edit-employee}">Edit</a> </td>-->
+		  <td> <a href="#" th:href="@{/esm/employee/edit}+'/'+${employee.empId}" th:text="#{ems.emp.edit-employee}">Edit</a> </td>
+		</tr>	
+	</table>
+	<div>
+		<span>
+			<a href="#" th:href="@{/esm/employee/create}" th:text="#{ems.emp.add-employee}">Add Employee</a>
+		</span>
+		<span>
+			<form action="#" th:action="@{/logout}"  method="POST">
+	      <table>
+			<tr>
+			    <td colspan="2">
+	              <input type="submit" th:value="#{ems.logout}"/> 
+	            </td>
+	        </tr>
+	      </table>  
+	    </form>
+		</span>
+	</div>
+	
+</body>
+</html> 
