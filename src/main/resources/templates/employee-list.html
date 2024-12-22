@@ -8,16 +8,7 @@
 	
    <h1 th:text="#{ems.landing.page.title}">Welcome to Employee Maanagement System</h1>
     <table>
-		<!--
-        <tr>
-           <th th:text="#{user.id}"/></th>
-           <th th:text="#{user.name}"></th>
-           <th th:text="#{user.gender}"></th>
-           <th th:text="#{user.married}+ '?'"></th>
-           <th th:text="#{user.profile}"></th>
-        </tr>
-         -->
-         <tr>
+		 <tr class="table-header">
 	      <td>Emp Id</td>
 	      <td>Name</td>
 		  <td>Email Id</td>
@@ -30,9 +21,41 @@
 		  <td th:text="${employee.emailId}"> Email Id </td>
 		  <td th:text="${employee.department.departmentName}"> Department </td>
 <!--		  <td> <a href="#" th:href="@{/esm-employee/edit/}" th:text="#{ems.emp.edit-employee}">Edit</a> </td>-->
-		  <td> <a href="#" th:href="@{/esm/employee/edit}+'/'+${employee.empId}" th:text="#{ems.emp.edit-employee}">Edit</a> </td>
+		  <td> 
+			  <a href="#" th:href="@{/esm/employee/edit}+'/'+${employee.empId}" th:text="#{ems.emp.edit.employee}">Edit</a> 
+			  <a href="#" th:href="@{/esm/employee/retrive}+'/'+${employee.empId}" th:text="#{ems.emp.view.employee}">View</a>
+			  <a href="#" th:href="@{/esm/employee/delete}+'/'+${employee.empId}" th:text="#{ems.emp.delete.employee}">Delete</a>
+		  </td>
 		</tr>	
 	</table>
+	<h3 th:if="${isView}" th:text="#{ems.emp.view.detail}"></h3>
+	 <table th:if="${isView}">
+		 <tr>
+	      <td>Emp Id</td>
+	      <td th:text="${employeeDetail.empId}">Emp Id</td>
+		</tr>
+		 <tr>
+	      <td>First Name</td>
+	      <td th:text="${employeeDetail.firstName}">firstName</td>
+		</tr>
+		 <tr>
+	      <td>Middle Name</td>
+	      <td th:text="${employeeDetail.middleName}">middleName</td>
+		</tr>
+		 <tr>
+	      <td>Last Name</td>
+	      <td th:text="${employeeDetail.lastName}">middleName</td>
+		</tr>
+		 <tr>
+	      <td>Email Id</td>
+	      <td th:text="${employeeDetail.emailId}">Email Id</td>
+		</tr>
+		 <tr>
+	      <td>Username</td>
+	      <td th:text="${employeeDetail.userName}">Email Id</td>
+		</tr>
+		 
+	 </table>	
 	<div>
 		<span>
 			<a href="#" th:href="@{/esm/employee/create}" th:text="#{ems.emp.add-employee}">Add Employee</a>

@@ -21,9 +21,9 @@ import com.mks.service.intf.DepartmentService;
 
 @Controller
 @RequestMapping("ems/department")
-public class DepartmentRestController {
+public class DepartmentController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentRestController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(DepartmentController.class);
 
 	@Autowired
 	private DepartmentService departmentService;

@@ -38,18 +38,19 @@ public class EmployeeController {
 	@GetMapping()
 	public ModelAndView  employeeList() {
 		LOGGER.info("Entry to EmployeeRestController >>> employeeList() method");
-		 ModelAndView modelAndView = new ModelAndView();
+		 ModelAndView mav = new ModelAndView();
 		 	List<Employee> employeeList = null;
 			try {
 				employeeList = employeeService.getEmployees();
-				modelAndView.addObject("employeeList", employeeList);
-				modelAndView.setViewName("employee-list");
+				mav.addObject("employeeList", employeeList);
+				mav.setViewName("employee-list");
+				mav.addObject("isView", false);
 				LOGGER.info("Exit from EmployeeRestController >>> employeeList() method");
 			} catch (Exception exception) {
 				LOGGER.error(exception.getMessage());
 				throw new ResponseHeaderException(exception.getMessage());
 			}
-			return modelAndView;
+			return mav;
 		
 	}
 	
@@ -89,15 +90,18 @@ public class EmployeeController {
 		
 	}
 	
-	@GetMapping("/employee/{employeeId}")
+	@GetMapping("/retrive/{employeeId}")
 	public ModelAndView getEmployee(@PathVariable("employeeId") Long employeeId) {
 		LOGGER.info("Entry to EmployeeRestController >>> getEmployee() method");
 		ModelAndView mav = new ModelAndView();
 		Employee employee = null;
 		try {
 			employee = employeeService.getEmployee(employeeId);
-			mav.setViewName("view-details");
-			mav.addObject("employee", employee);
+			mav.addObject("employeeDetail", employee);
+			List<Employee> employeeList = employeeService.getEmployees();
+			mav.addObject("employeeList", employeeList);
+			mav.addObject("isView", true);
+			mav.setViewName("employee-list");
 		} catch (Exception exception) {
 			LOGGER.error(exception.getMessage());
 			throw new ResponseHeaderException(exception.getLocalizedMessage());
@@ -120,18 +124,19 @@ public class EmployeeController {
 		return this.employeeList();
 	}
 
-	@DeleteMapping("/employee/{employeeId}")
-	public String deleteEmployee(@PathVariable("employeeId") Long employeeId) {
+	@GetMapping("/delete/{employeeId}")
+	public ModelAndView deleteEmployee(@PathVariable("employeeId") Long employeeId) {
 		String message = "Success";
 		try {
 			LOGGER.info("Entry to EmployeeRestController >>> deleteEmployee() method --> {}", employeeId);
-			employeeService.deleteEmployee(employeeId);
+			message = employeeService.deleteEmployee(employeeId);
 			LOGGER.info("Exit from EmployeeRestController >>> deleteEmployee() method");
 		} catch (Exception exception) {
 			message = "Failed";
-			LOGGER.error("Employee not found");
+			LOGGER.error(exception.getMessage());
+			throw new ResponseHeaderException(exception.getMessage());
 		}
-		return message;
+		return this.employeeList().addObject("message",message);
 	}
 
 }

@@ -1,16 +1,31 @@
-.error{
-    color: red;
-    font-size: 15px;
+body {
+	background-color: lightblue;
+	padding-left: 28%;
+	padding-top: 5%;
+	
 }
-.user{
-    color: blue;
-    font-size: 15px;
+
+.error {
+	color: red;
+	font-size: 15px;
 }
+
+.employee {
+	color: blue;
+	font-size: 15px;
+}
+
 table {
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
 
-table, th, td {
-    border: 1px solid black;
+table,
+th,
+td {
+	border: 2px solid black;
 }
 
+.table-header {
+	background-color: #FFFFC5;
+	font-size: 20px;
+}
