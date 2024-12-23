@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "EMS_EMPLOYEE_DTAILS")
@@ -17,16 +19,34 @@ public class Employee {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "EMP_ID_I")
 	private Long empId;
+	
+	@NotNull
+	@Size(min=8, max=30)
 	@Column(name = "EMP_F_NAME_C")
 	private String firstName;
+	
+	@NotNull
+	@Size(min=8, max=30)
 	@Column(name = "EMP_M_NAME_C")
 	private String middleName;
+	
+	@NotNull
+	@Size(min=8, max=30)
 	@Column(name = "EMP_L_NAME_C")
 	private String lastName;
+
+	@NotNull
+	@Size(min=8, max=30)
 	@Column(name = "EMP_EMAIL_ID_C")
 	private String emailId;
+	
+	@NotNull
+	@Size(min=8, max=30)
 	@Column(name = "EMP_U_NAME_C")
 	private String userName;
+	
+	@NotNull
+	@Size(min=8, max=255)
 	@Column(name = "EMP_PASSWORD_C")
 	private String password;
 	
