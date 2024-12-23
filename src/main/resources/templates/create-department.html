@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{ems.title}"> Title </title>
+        <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    </head>
+	<body>
+		<h1 th:text="#{ems.landing.page.title}">Welcome to Employee Maanagement System</h1>
+		<h3 th:text="#{ems.dept.add}">Create</h3>
+	    <form action="#" th:action="@{/ems/department/save}" th:object="${department}" method="POST">
+	      <table>
+			 <input type="hidden" th:field="*{departmentId}" />
+	    	<tr>
+				<td th:text="#{department.departmentName}"></td>
+	    	    <td>
+	    	      <input type="text" th:field="*{departmentName}" />
+	    	      <label th:if="${#fields.hasErrors('departmentName')}" th:text="#{error.dept.departmentName}" th:class="'error'">Name Error</label>
+	    	    </td>
+	    	</tr>
+	    	<tr><td th:text="#{department.departmentLocation}"></td>
+	    	    <td>
+	    	      <input type="text" th:field="*{departmentLocation}" />
+	    	      <label th:if="${#fields.hasErrors('departmentLocation')}" th:text="#{error.dept.departmentLocation}" th:class="'error'">Name Error</label>
+	    	    </td>
+	    	</tr>
+	        <tr>
+				<td colspan="2">
+	              <input type="submit" th:value="#{ems.emp.form.submit}"/> 
+	              <input type="reset" th:value="#{ems.emp.form.reset}"/>
+	            </td>
+	        </tr>
+	      </table>  
+	    </form>
+	</body>
+</html>

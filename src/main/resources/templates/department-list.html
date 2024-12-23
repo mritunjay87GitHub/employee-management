@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+      <title th:text="#{ems.title}"> Title </title>
+      <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+</head>
+<body>
+	
+   <h1 th:text="#{ems.landing.page.title}">Welcome to Employee Maanagement System</h1>
+    <table>
+		 <tr class="table-header">
+	      <td>Name</td>
+		  <td>Location</td>
+		  <td>Action</td>
+		</tr>	
+        <tr th:each="department : ${departmentList}">
+	      <td th:text="${department.departmentName}">Name</td>
+		  <td th:text="${department.departmentName}">Location</td>
+		  <td> 
+			  <a href="#" th:href="@{/ems/department/edit}+'/'+${department.departmentId}" th:text="#{ems.emp.edit.employee}">Edit</a> 
+			  <a href="#" th:href="@{/ems/department/retrieve}+'/'+${department.departmentId}" th:text="#{ems.emp.view.employee}">View</a>
+			  <a href="#" th:href="@{/ems/department/delete}+'/'+${department.departmentId}" th:text="#{ems.emp.delete.employee}">Delete</a>
+		  </td>
+		</tr>	
+	</table>
+	<h3 th:if="${isView}" th:text="#{ems.dept.view.detail}"></h3>
+	 <table th:if="${isView}">
+		 <tr>
+	      <td>Department Id</td>
+	      <td th:text="${department.departmentId}">departmentId</td>
+		</tr>
+		 
+		 <tr>
+	      <td>Department Name</td>
+	      <td th:text="${department.departmentName}">departmentId</td>
+		</tr>
+		
+		 <tr>
+	      <td>Department Location</td>
+	      <td th:text="${department.departmentLocation}">departmentId</td>
+		</tr>
+	 </table>	
+	<div>
+		<p>
+			<a href="#" th:href="@{/ems/department/create}" th:text="#{ems.emp.add.department}">Add Department</a>
+		</p>
+		<p>
+			<form action="#" th:action="@{/logout}"  method="POST">
+	      <table>
+			<tr>
+			    <td colspan="2">
+	              <input type="submit" th:value="#{ems.logout}"/> 
+	            </td>
+	        </tr>
+	      </table>  
+	    </form>
+		</p>
+	</div>
+	
+</body>
+</html> 

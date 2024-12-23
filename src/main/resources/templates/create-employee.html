@@ -6,10 +6,10 @@
     </head>
 	<body>
 		<h1 th:text="#{ems.landing.page.title}">Welcome to Employee Maanagement System</h1>
-		<h3 th:text="#{ems.emp.add-employee}">Create</h3>
+		<h3 th:text="#{ems.emp.add.employee}">Create</h3>
 	    <form action="#" th:action="@{/esm/employee/create-employee}" th:object="${employee}" method="POST">
 	      <table>
-			
+			<input type="hidden" th:field="*{empId}" />
 	    	<tr>
 				<td th:text="#{employee.firstName}"></td>
 	    	    <td>

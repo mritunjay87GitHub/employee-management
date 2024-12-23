@@ -9,18 +9,13 @@
    <h1 th:text="#{ems.landing.page.title}">Welcome to Employee Maanagement System</h1>
     <table>
 		 <tr class="table-header">
-	      <td>Emp Id</td>
 	      <td>Name</td>
 		  <td>Email Id</td>
-		  <td>Department</td>
 		  <td>Action</td>
 		</tr>	
         <tr th:each="employee : ${employeeList}">
-	      <td th:text="${employee.empId}"> Emp Id </td>
-		  <td th:text="${employee.firstName + ' ' + employee.middleName + ' ' + employee.lastName}">Name</td>
+	      <td th:text="${employee.firstName + ' ' + employee.middleName + ' ' + employee.lastName}">Name</td>
 		  <td th:text="${employee.emailId}"> Email Id </td>
-		  <td th:text="${employee.department.departmentName}"> Department </td>
-<!--		  <td> <a href="#" th:href="@{/esm-employee/edit/}" th:text="#{ems.emp.edit-employee}">Edit</a> </td>-->
 		  <td> 
 			  <a href="#" th:href="@{/esm/employee/edit}+'/'+${employee.empId}" th:text="#{ems.emp.edit.employee}">Edit</a> 
 			  <a href="#" th:href="@{/esm/employee/retrive}+'/'+${employee.empId}" th:text="#{ems.emp.view.employee}">View</a>
@@ -57,10 +52,14 @@
 		 
 	 </table>	
 	<div>
-		<span>
-			<a href="#" th:href="@{/esm/employee/create}" th:text="#{ems.emp.add-employee}">Add Employee</a>
-		</span>
-		<span>
+		<p>
+			<a href="#" th:href="@{/esm/employee/create}" th:text="#{ems.emp.add.employee}">Add Employee</a>
+		</p>
+		
+		<p>
+			<a href="#" th:href="@{/ems/department/retrieves}" th:text="#{ems.emp.view.departments}">View Departments</a>
+		</p>
+		<p>
 			<form action="#" th:action="@{/logout}"  method="POST">
 	      <table>
 			<tr>
@@ -70,7 +69,7 @@
 	        </tr>
 	      </table>  
 	    </form>
-		</span>
+		</p>
 	</div>
 	
 </body>
